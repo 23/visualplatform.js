@@ -71,6 +71,11 @@ var Visualplatform = window.Visualplatform = (function($){
         for (var i=0; i<s.length-1; i++) {
           x.push(s[i]);
           if(!$api[x.join('.')]) $api[x.join('.')] = {};
+          if(i==1) {
+            $api[s[i-1]][s[i]] = $api[x.join('.')];
+          } else {
+            $api[s[i]] = $api[x.join('.')];
+          }
         }
         // Create an alias for the method (both $api.album.list and $api['album.list'])
         if(x.length>0) {
