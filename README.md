@@ -22,8 +22,8 @@ Making simple request to the open API:
 
 Methods can be called as:
 
-    visualplatform.photo.photoSectionList(...)
-    visualplatform['photo.photoSectionList'](...)
+    visualplatform.photo.section.list(...)
+    visualplatform['photoSectionList'](...)
     visualplatform['/api/photo/section/list'](...)
 
 

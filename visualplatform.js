@@ -7,8 +7,8 @@ visualplatform.album.list(
 );
 
 Methods can be called as:
-  visualplatform.photo.photoSectionList(...)
-  visualplatform['photo.photoSectionList'](...)
+  visualplatform.photo.section.list(...)
+  visualplatform['photoSectionList'](...)
   visualplatform['/api/photo/section/list'](...)
 
 The first parameter is always a JS object with the filter data described in 
