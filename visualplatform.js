@@ -57,6 +57,7 @@ var Visualplatform = window.Visualplatform = (function($){
       // Build functions for each Visualplatform API method
       for (i in methods) {
         var method = methods[i];
+        if(!method.replace) continue;
         $api[method] = (function(method){
             return function(data,sucess,error){
               var data=data||{};
