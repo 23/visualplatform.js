@@ -52,7 +52,7 @@ var Visualplatform = window.Visualplatform = (function($){
       }
       
       // Map entire Visualplatform API
-      var methods = ['/api/analytics/report/event', '/api/analytics/report/play', '/api/album/list', '/api/comment/list', '/api/distribution/ios/register-device', '/api/distribution/ios/unregister-device', '/api/license/list', '/api/liveevent/list', '/api/liveevent/stream/list', '/api/photo/list', '/api/photo/rate', '/api/player/list', '/api/player/settings', '/api/photo/section/list', '/api/site/get', '/api/photo/subtitle/list', '/api/tag/list', '/api/tag/related', '/api/echo', '/api/user/list'];
+      var methods = ['/api/analytics/report/event', '/api/analytics/report/play', '/api/album/list', '/api/comment/list', '/api/distribution/ios/register-device', '/api/distribution/ios/unregister-device', '/api/license/list', '/api/liveevent/list', '/api/liveevent/stream/list', '/api/photo/list', '/api/photo/rate', '/api/player/list', '/api/player/settings', '/api/photo/section/list', '/api/site/get', '/api/photo/subtitle/list', '/api/photo/subtitle/data', '/api/tag/list', '/api/tag/related', '/api/echo', '/api/user/list'];
       
       // Build functions for each Visualplatform API method
       for (i in methods) {
