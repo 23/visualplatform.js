@@ -25,6 +25,7 @@ This library requires jQuery.
 
 var Visualplatform = window.Visualplatform = (function($){
     return function(domain){
+      var $i = 0;
       var $api = this;
       $api.serviceDomain = domain;
       
@@ -38,6 +39,7 @@ var Visualplatform = window.Visualplatform = (function($){
             data:data,
             crossDomain:true, 
             dataType:'jsonp', 
+            jsonpCallback:"visualplatform_" + ($i++),
             success:function(res) {
               if(res.status == 'ok') {
                 if(success) success(res);
