@@ -16,7 +16,7 @@ Making simple request to the open API:
     var visualplatform = Visualplatform(yourDomain);
     visualplatform.album.list(
       {search:'test'}, 
-      function(data){...}
+      function(data){...},
       function(errorMessage){...}
     );
 
@@ -29,6 +29,20 @@ Methods can be called as:
 
 The first parameter is always a JS object with the filter data described in [the API documentation](http://www.23developer.com/api/#methods). The second and third parameters are callbacks in the event of success and error respectively.
 
+## Concatenating request
+   
+If you are making a set of requests, you can boost performance by concatenating them. This makes a single HTTP request to the server and invokes the callback method for each contained api method:
+
+    var visualplatform = Visualplatform(yourDomain);
+    visualplatform.concatenate(
+        [
+            {name:'settings', method:'/api/player/settings', callback:function(o,name){console.debug(name, o);}},
+            {method:'/api/photo/list', data:{photo_id:2628325}, callback:function(o){console.debug('list of videos', o);}}
+        ],
+        function(all){console.debug('done');},
+        function(errorMessage){console.debug(errorMessage);}
+    );
+
 ## Client vs Server.
 
-The client-side JavaScript library does not support OAuth authentication and it does not allow for any method that requires [`write`, `admin` or `super` privilges](http://www.23developer.com/api/#permission-levels). For this refer to the [Node.js library](http://github.com/23/node-23video) for the server side.
+The client-side JavaScript library does not support OAuth authentication and it does not allow for any method that requires [`write`, `admin` or `super` privileges](http://www.23developer.com/api/#permission-levels). For this refer to the [Node.js library](http://github.com/23/node-23video) for the server side.

@@ -41,11 +41,54 @@ var Visualplatform = window.Visualplatform = (function($){
             dataType:'jsonp', 
             jsonpCallback:"visualplatform_" + ($i++),
             success:function(res) {
-              if(res.status == 'ok') {
-                if(success) success(res);
-              } else {
-                if(error) error(res.message);
-              }
+              try {
+                if(res.status == 'ok') {
+                  if(success) success(res);
+                } else {
+                  if(error) error(res.message);
+                }
+              }catch(e){console.debug(e);}
+            },
+            error:function(err) {
+              if(error) error(err);
+            }
+          });
+      }
+
+      // Version of call for concatenation of requests
+      $api.concatenate = function(methods, success, error){
+        // Handle arguments
+        methods = methods||[];
+        data = {};
+        data['format'] = 'json';
+        var objectNames = [];
+        var objectCallbacks = {};
+        var i = 0;
+        $.each(methods, function(i,o){
+            var name = o.name||o.method.split('/').slice(2).join('') + '_' + (i++);
+            objectNames.push(name);
+            objectCallbacks[name] = o.callback || function(){};
+            data[name] = o.method + (o.data ? ('?'+$.param(o.data)) : '');
+          });
+        $.ajax({
+            url:'http://'+$api.serviceDomain+'/api/concatenate', 
+            data:data,
+            crossDomain:true, 
+            dataType:'jsonp', 
+            jsonpCallback:"visualplatformconcat_" + ($i++),
+            success:function(res) {
+              $.each(objectNames, function(i,name){
+                  if(res[name]) {
+                    if(res[name].status == 'ok') {
+                      objectCallbacks[name](res[name], name);
+                    } else {
+                      if(error) error(res[name].message);
+                    }
+                  } else {
+                    if(error) error(res.message||'No return for ' + name);
+                  }
+                });
+              if(success) success(res);
             },
             error:function(err) {
               if(error) error(err);
