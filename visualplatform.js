@@ -35,8 +35,9 @@ var Visualplatform = window.Visualplatform = (function($){
         data = data||{};
         data['format'] = 'json';
         $.ajax({
-            url:'http://'+$api.serviceDomain+'/'+method, 
+            url:'http://'+$api.serviceDomain+method, 
             data:data,
+            cache:true,
             crossDomain:true, 
             dataType:'jsonp', 
             jsonpCallback:"visualplatform_" + ($i++),
@@ -73,6 +74,7 @@ var Visualplatform = window.Visualplatform = (function($){
         $.ajax({
             url:'http://'+$api.serviceDomain+'/api/concatenate', 
             data:data,
+            cache:true,
             crossDomain:true, 
             dataType:'jsonp', 
             jsonpCallback:"visualplatformconcat_" + ($i++),
