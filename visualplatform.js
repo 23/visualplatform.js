@@ -28,6 +28,7 @@ var Visualplatform = window.Visualplatform = (function($){
       var $i = 0;
       var $api = this;
       $api.serviceDomain = domain;
+      $api.protocol = 'http';
       
       /* API WEB SERVICE API */
       $api.call = function(method, data, success, error){
@@ -35,7 +36,7 @@ var Visualplatform = window.Visualplatform = (function($){
         data = data||{};
         data['format'] = 'json';
         $.ajax({
-            url:'http://'+$api.serviceDomain+method, 
+            url:$api.protocol+'://'+$api.serviceDomain+method, 
             data:data,
             cache:true,
             crossDomain:true, 
@@ -72,7 +73,7 @@ var Visualplatform = window.Visualplatform = (function($){
             data[name] = o.method + (o.data ? ('?'+$.param(o.data)) : '');
           });
         $.ajax({
-            url:'http://'+$api.serviceDomain+'/api/concatenate', 
+            url:$api.protocol+'://'+$api.serviceDomain+'/api/concatenate', 
             data:data,
             cache:true,
             crossDomain:true, 
