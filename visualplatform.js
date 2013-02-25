@@ -24,23 +24,27 @@ This library requires jQuery.
 */
 
 var Visualplatform = window.Visualplatform = (function($){
-    return function(domain){
+   return function(domain,extraMethods){
       var $i = 0;
       var $api = this;
       $api.serviceDomain = domain;
       $api.protocol = 'http';
+      $api.crossDomain = true;
+      $api.extraMethods = extraMethods||[];
       
       /* API WEB SERVICE API */
       $api.call = function(method, data, success, error){
         // Handle arguments
         data = data||{};
         data['format'] = 'json';
+        if(!$api.crossDomain) data['raw'] = '1';
         $.ajax({
             url:$api.protocol+'://'+$api.serviceDomain+method, 
             data:data,
             cache:true,
-            crossDomain:true, 
-            dataType:'jsonp', 
+            crossDomain:$api.crossDomain, 
+            dataType:($api.crossDomain ? 'jsonp' : 'json'), 
+            type:($api.crossDomain ? 'GET' : 'POST'), 
             jsonpCallback:"visualplatform_" + ($i++),
             success:function(res) {
               try {
@@ -100,7 +104,7 @@ var Visualplatform = window.Visualplatform = (function($){
       }
       
       // Map entire Visualplatform API
-      var methods = ['/api/analytics/report/event', '/api/analytics/report/play', '/api/album/list', '/api/comment/list', '/api/distribution/ios/register-device', '/api/distribution/ios/unregister-device', '/api/license/list', '/api/liveevent/list', '/api/liveevent/stream/list', '/api/photo/list', '/api/photo/rate', '/api/player/list', '/api/player/settings', '/api/photo/section/list', '/api/site/get', '/api/photo/subtitle/list', '/api/photo/subtitle/data', '/api/tag/list', '/api/tag/related', '/api/echo', '/api/user/list'];
+      var methods = ['/api/analytics/report/event', '/api/analytics/report/play', '/api/album/list', '/api/comment/list', '/api/distribution/ios/register-device', '/api/distribution/ios/unregister-device', '/api/license/list', '/api/liveevent/list', '/api/liveevent/stream/list', '/api/photo/list', '/api/photo/rate', '/api/player/list', '/api/player/settings', '/api/photo/section/list', '/api/site/get', '/api/photo/subtitle/list', '/api/photo/subtitle/data', '/api/tag/list', '/api/tag/related', '/api/echo', '/api/user/list'].concat($api.extraMethods);
       
       // Build functions for each Visualplatform API method
       for (i in methods) {
