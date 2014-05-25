@@ -38,8 +38,13 @@ var Visualplatform = window.Visualplatform = (function($){
         data = data||{};
         data['format'] = 'json';
         if(!$api.crossDomain) data['raw'] = '1';
+        if(/:\/\//.test(method)) {
+          var url = method;
+        } else {
+          var url = $api.protocol+'://'+$api.serviceDomain+method;
+        }
         $.ajax({
-            url:$api.protocol+'://'+$api.serviceDomain+method, 
+            url:url, 
             data:data,
             cache:true,
             crossDomain:$api.crossDomain, 
