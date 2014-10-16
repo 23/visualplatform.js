@@ -76,7 +76,7 @@ Then bootstrap with [your API credentials](http://www.23video.com/api/oauth):
       access_token_secret:'<access token secret>'
     });
 
-After this, simply run requests as described above.
+After this, simply run requests as described above. Note that OAuth signatures do not work with concatenated requests.
 
 
 ## Client vs Server.

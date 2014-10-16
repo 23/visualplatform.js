@@ -104,27 +104,14 @@ var Visualplatform = window.Visualplatform = (function($){
             objectCallbacks[name] = o.callback || function(){};
             data[name] = o.method + (o.data ? ('?'+$.param(o.data)) : '');
           });
-
-        var method = ($api.crossDomain ? 'GET' : 'POST');
-        var callback = "visualplatformconcat_" + ($i++);
-        var url = $api.protocol+'://'+$api.serviceDomain+'/api/concatenate';
-        // Add OAuth signature if required
-        if ($api.oauth) {
-          if($api.crossDomain) {
-            data = $api.oauth.authorize({url:url, method:method, data:$.extend(data, {callback:callback})}, $api.oauthToken);
-            delete data['callback']; // jQuery will add this back in for JSON-P requests
-          } else {
-            data = $api.oauth.authorize({url:url, method:method, data:data}, $api.oauthToken);
-          }
-        }
         $.ajax({
-            url:url, 
+            url:$api.protocol+'://'+$api.serviceDomain+'/api/concatenate', 
             data:data,
             cache:true,
             crossDomain:$api.crossDomain, 
             dataType:($api.crossDomain ? 'jsonp' : 'json'), 
-            type:method, 
-            jsonpCallback:callback,
+            type:($api.crossDomain ? 'GET' : 'POST'), 
+            jsonpCallback:"visualplatformconcat_" + ($i++),
             success:function(res) {
               $.each(objectNames, function(i,name){
                   if(res[name]) {
