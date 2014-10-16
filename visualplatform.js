@@ -107,6 +107,7 @@ var Visualplatform = window.Visualplatform = (function($){
 
         var method = ($api.crossDomain ? 'GET' : 'POST');
         var callback = "visualplatformconcat_" + ($i++);
+        var url = $api.protocol+'://'+$api.serviceDomain+'/api/concatenate';
         // Add OAuth signature if required
         if ($api.oauth) {
           if($api.crossDomain) {
@@ -117,7 +118,7 @@ var Visualplatform = window.Visualplatform = (function($){
           }
         }
         $.ajax({
-            url:$api.protocol+'://'+$api.serviceDomain+'/api/concatenate', 
+            url:url, 
             data:data,
             cache:true,
             crossDomain:$api.crossDomain, 
