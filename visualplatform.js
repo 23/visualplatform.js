@@ -32,7 +32,7 @@ var Visualplatform = window.Visualplatform = (function($){
       // Optionally, allow for signing stuff with OAuth
       $api.oAuthCredentials = oAuthCredentials||{};
       if($api.oAuthCredentials.consumer_key && $api.oAuthCredentials.consumer_key.length>0) {
-        if(!OAuth) {
+        if(typeof OAuth == 'undefined') {
           alert('oauth-1.0a.js is required to sign requests with consumer and access credentials.'); 
           return;
         }
