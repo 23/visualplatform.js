@@ -24,13 +24,27 @@ This library requires jQuery.
 */
 
 var Visualplatform = window.Visualplatform = (function($){
-   return function(domain,extraMethods){
+   return function(domain,extraMethods,oAuthCredentials){
       var $i = 0;
       var $api = this;
       $api.serviceDomain = domain;
       $api.protocol = 'http';
       $api.crossDomain = true;
       $api.extraMethods = extraMethods||[];
+
+      // Optionally, allow for signing stuff with OAuth
+      $api.oAuthCredentials = oAuthCredentials||{};
+      if($api.oAuthCredentials.consumer_key && $api.oAuthCredentials.consumer_key.length>0) {
+        if(!OAuth) {
+          alert('oauth-1.0a.js is required to sign requests with consumer and access credentials.'); 
+          return;
+        }
+        $api.oauthConsumer = {public:$api.oAuthCredentials.consumer_key, secret:$api.oAuthCredentials.consumer_secret};
+        $api.oauthToken = {public:$api.oAuthCredentials.access_token, secret:$api.oAuthCredentials.access_token_secret};
+        $api.oauth = OAuth({consumer:$api.oauthConsumer, signature_method: 'HMAC-SHA1'});
+      } else {
+        $api.oauth = null;
+      }
       
       /* API WEB SERVICE API */
       $api.call = function(method, data, success, error){
@@ -38,10 +52,22 @@ var Visualplatform = window.Visualplatform = (function($){
         data = data||{};
         data['format'] = 'json';
         if(!$api.crossDomain) data['raw'] = '1';
+        // Set up the request
         if(/:\/\//.test(method)) {
           var url = method;
         } else {
           var url = $api.protocol+'://'+$api.serviceDomain+method;
+        }
+        var method = ($api.crossDomain ? 'GET' : 'POST');
+        var callback = "visualplatform_" + ($i++);
+        // Add OAuth signature if required
+        if ($api.oauth) {
+          if($api.crossDomain) {
+            data = oauth.authorize({url:url, method:method, data:$.extend(data, {callback:callback})}, $api.oauthToken);
+            delete data['callback']; // jQuery will add this back in for JSON-P requests
+          } else {
+            data = oauth.authorize({url:url, method:method, data:data}, $api.oauthToken);
+          }
         }
         $.ajax({
             url:url, 
@@ -49,8 +75,8 @@ var Visualplatform = window.Visualplatform = (function($){
             cache:true,
             crossDomain:$api.crossDomain, 
             dataType:($api.crossDomain ? 'jsonp' : 'json'), 
-            type:($api.crossDomain ? 'GET' : 'POST'), 
-            jsonpCallback:"visualplatform_" + ($i++),
+            type:method, 
+            jsonpCallback:callback,
             success:function(res) {
               try {
                 if(res.status == 'ok') {
