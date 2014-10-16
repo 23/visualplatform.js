@@ -1,4 +1,6 @@
 /*
+Full documentation for this library is available at https://github.com/23/visualplatform.js.
+
 var visualplatform = Visualplatform(domain);
 visualplatform.album.list(
   {search:'test'}, 
@@ -15,12 +17,7 @@ The first parameter is always a JS object with the filter data described in
 http://www.23developer.com/api/#methods
 
 The second and third parameters are callbacks in the event of success and
-error respectively.
-
-The client-side JavaScript library does not support OAuth authentication, 
-for this refer to the Node.js framework at http://github.com/23/node-23video
-
-This library requires jQuery.
+error respectively. The library requires jQuery.
 */
 
 var Visualplatform = window.Visualplatform = (function($){
