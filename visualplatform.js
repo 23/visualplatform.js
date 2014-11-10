@@ -25,7 +25,7 @@ var Visualplatform = window.Visualplatform = (function($){
       var $i = 0;
       var $api = this;
       $api.serviceDomain = domain;
-      $api.protocol = 'http';
+      $api.protocol = (document.location.protocol=='https:' ? 'https' : 'http');
       $api.crossDomain = true;
       $api.extraMethods = extraMethods||[];
 
