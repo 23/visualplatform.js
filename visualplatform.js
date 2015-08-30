@@ -68,8 +68,8 @@ var Visualplatform = window.Visualplatform = (function($){
             data = $api.oauth.authorize({url:url, method:method, data:data}, $api.oauthToken);
           }
         }
-        $.ajax({
-            url:url, 
+        var jqxhr = $.ajax({
+            url:url,
             data:data,
             cache:true,
             crossDomain:$api.crossDomain, 
@@ -89,6 +89,7 @@ var Visualplatform = window.Visualplatform = (function($){
               if(error) error(err);
             }
           });
+        return jqxhr;
       }
 
       // Version of call for concatenation of requests
@@ -106,8 +107,8 @@ var Visualplatform = window.Visualplatform = (function($){
             objectCallbacks[name] = o.callback || function(){};
             data[name] = o.method + (o.data ? ('?'+$.param(o.data)) : '');
           });
-        $.ajax({
-            url:$api.protocol+'://'+$api.serviceDomain+'/api/concatenate', 
+        var jqxhr = $.ajax({
+            url:$api.protocol+'://'+$api.serviceDomain+'/api/concatenate',
             data:data,
             cache:true,
             crossDomain:$api.crossDomain, 
@@ -132,6 +133,7 @@ var Visualplatform = window.Visualplatform = (function($){
               if(error) error(err);
             }
           });
+        return jqxhr;
       }
       
       // Map entire Visualplatform API
