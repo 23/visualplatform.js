@@ -36,10 +36,14 @@ var Visualplatform = window.Visualplatform = (function($){
           alert('oauth-1.0a.js is required to sign requests with consumer and access credentials.'); 
           return;
         }
-        $api.oauthConsumer['public'] = $api.oAuthCredentials.consumer_key;
-        $api.oauthConsumer['secret'] = $api.oAuthCredentials.consumer_secret;
-        $api.oauthToken['public'] = $api.oAuthCredentials.access_token;
-        $api.oauthToken['secret'] = $api.oAuthCredentials.access_token_secret;
+        $api.oauthConsumer = {
+          public: $api.oAuthCredentials.consumer_key,
+          secret: $api.oAuthCredentials.consumer_secret
+        };
+        $api.oauthToken = {
+          public: $api.oAuthCredentials.access_token,
+          secret: $api.oAuthCredentials.access_token_secret
+        };
         $api.oauth = OAuth({consumer:$api.oauthConsumer, signature_method: 'HMAC-SHA1'});
       } else {
         $api.oauth = null;
