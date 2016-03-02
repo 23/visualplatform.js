@@ -1,6 +1,6 @@
 {
   "name": "visualplatform.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "`visualplatform.js` is a client-side JavaScript library for the read-only parts of the [The 23 Video API](http://www.23developer.com/api) (or more correctly, The Visualplatform API).",
   "main": "visualplatform.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/23/visualplatform.js/issues"
   },
-  "homepage": "https://github.com/23/visualplatform.js#readme"
+  "homepage": "https://github.com/23/visualplatform.js#readme",
+  "dependencies": {
+    "jquery": ">=1.11.3"
+  }
 }
