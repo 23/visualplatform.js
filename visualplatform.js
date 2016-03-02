@@ -179,5 +179,8 @@ var Visualplatform = window.Visualplatform = (function($){
       return(this);
     };
 
-  })(jQuery);
+})(jQuery);
 
+if (typeof module === "object" && module.exports) {
+    module.exports = Visualplatform;
+}
