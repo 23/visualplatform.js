@@ -24,7 +24,7 @@ if(typeof jQuery === "undefined" && typeof require === "function"){
   var jQuery = require('jquery');
 }
 
-var Visualplatform = window.Visualplatform = (function($){
+var Visualplatform = (function($){
    return function(domain,extraMethods,oAuthCredentials){
       var $i = 0;
       var $api = this;
