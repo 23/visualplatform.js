@@ -20,11 +20,10 @@ The second and third parameters are callbacks in the event of success and
 error respectively. The library requires jQuery.
 */
 
-if(typeof jQuery === "undefined" && typeof require === "function"){
-  var jQuery = require('jquery');
-}
-
 var Visualplatform = (function($){
+   if(typeof $ === "undefined" && typeof require === "function"){
+      $ = require('jquery');
+   }
    return function(domain,extraMethods,oAuthCredentials){
       var $i = 0;
       var $api = this;
