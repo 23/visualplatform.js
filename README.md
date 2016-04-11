@@ -1,14 +1,14 @@
-## 23 Video API for JavaScript and jQuery
+## TwentyThree API for JavaScript and jQuery
 
-`visualplatform.js` is a client-side JavaScript library for the read-only parts of the [The 23 Video API](http://www.23developer.com/api) (or more correctly, The Visualplatform API).
+`visualplatform.js` is a client-side JavaScript library for the read-only parts of the [The TwentyThree API](https://www.twentythree.net/api/).
 
-The library is designed to work across domains using [JSON-P](http://www.23developer.com/api/#response-formats) and it requires jQuery.
+The library is designed to work across domains using [JSON-P](https://www.twentythree.net/api/#response-formats) and it requires jQuery.
 
 ## Using the library
 
 Make sure the library is including the HTML page:
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="visualplatform.js"></script>
 
 Making simple request to the open API:
@@ -27,7 +27,7 @@ Methods can be called as:
     visualplatform['/api/photo/section/list'](...)
 
 
-The first parameter is always a JS object with the filter data described in [the API documentation](http://www.23developer.com/api/#methods). The second and third parameters are callbacks in the event of success and error respectively.
+The first parameter is always a JS object with the filter data described in [the API documentation](https://www.twentythree.net/api/#methods). The second and third parameters are callbacks in the event of success and error respectively.
 
 ## Concatenating request
    
@@ -45,7 +45,7 @@ If you are making a set of requests, you can boost performance by concatenating 
 
 ## Extending the library with more API endpoints
 
-Visualplatform.js ship with support for the most common methods in the 23 Video API, but can be extended with for any other API endpoint:
+Visualplatform.js ship with support for the most common methods in the TwentyThree API, but can be extended with for any other API endpoint:
 
     var visualplatform = Visualplatform('mydomain.23video.com', ['/api/action/add', '/api/action/delete',  '/api/action/get']);
     visualplatform.action.get(
@@ -57,7 +57,7 @@ Visualplatform.js ship with support for the most common methods in the 23 Video 
 
 ## Support for OAuth 1.0a signatures
 
-A number of features in [the 23 Video API](http://www.23video.com/api) requires authorization through [OAuth 1.0a signatures](http://www.23video.com/api/oauth). The library supports this throug [the oauth-1.0a signing library](https://github.com/ddo/oauth-1.0a). 
+A number of features in [the TwentyThree API](https://www.twentythree.net/api) requires authorization through [OAuth 1.0a signatures](https://www.twentythree.net/api/oauth). The library supports this throug [the oauth-1.0a signing library](https://github.com/ddo/oauth-1.0a). 
 
 To sign requests, make sure the signing library is loaded alongside Visualplatform.js:
 
@@ -67,9 +67,9 @@ To sign requests, make sure the signing library is loaded alongside Visualplatfo
     <script src="jquery/jquery.js"></script>
     <script src="visualplatform.js/visualplatform.js"></script>
 
-Then bootstrap with [your API credentials](http://www.23video.com/api/oauth):
+Then bootstrap with [your API credentials](https://www.twentythree.net/api/oauth):
 
-    var visualplatform = Visualplatform('mydomain.23video.com', [], {
+    var visualplatform = Visualplatform('mydomain.twentythree.net', [], {
       consumer_key:'<consumer key>', 
       consumer_secret:'<consumer secret>', 
       access_token:'<access token>', 
@@ -81,4 +81,4 @@ After this, simply run requests as described above. Note that OAuth signatures d
 
 ## Client vs Server.
 
-The client-side JavaScript library does not support OAuth authentication and it does not allow for any method that requires [`write`, `admin` or `super` privileges](http://www.23developer.com/api/#permission-levels). For this refer to the [Node.js library](http://github.com/23/node-23video) for the server side.
+The client-side JavaScript library does not support OAuth authentication and it does not allow for any method that requires [`write`, `admin` or `super` privileges](https://www.twentythree.net/api/#permission-levels). For this refer to the [Node.js library](http://github.com/23/node-23video) for the server side.
