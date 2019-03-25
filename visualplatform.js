@@ -30,6 +30,7 @@ var Visualplatform = (function($){
       $api.serviceDomain = domain;
       $api.protocol = (document.location.protocol=='https:' ? 'https' : 'http');
       $api.crossDomain = true;
+      $api.preferredHttpMethod = 'POST';
       $api.extraMethods = extraMethods||[];
 
       // Optionally, allow for signing stuff with OAuth
@@ -64,7 +65,7 @@ var Visualplatform = (function($){
         } else {
           var url = $api.protocol+'://'+$api.serviceDomain+method;
         }
-        var method = ($api.crossDomain ? 'GET' : 'POST');
+        var method = ($api.crossDomain ? 'GET' : $api.preferredHttpMethod);
         var callback = "visualplatform_" + ($i++);
         // Add OAuth signature if required
         if ($api.oauth) {
@@ -105,6 +106,7 @@ var Visualplatform = (function($){
         methods = methods||[];
         data = {};
         data['format'] = 'json';
+        if(!$api.crossDomain) data['raw'] = '1';
         var objectNames = [];
         var objectCallbacks = {};
         var i = 0;
@@ -120,7 +122,7 @@ var Visualplatform = (function($){
             cache:true,
             crossDomain:$api.crossDomain, 
             dataType:($api.crossDomain ? 'jsonp' : 'json'), 
-            type:($api.crossDomain ? 'GET' : 'POST'), 
+            type:($api.crossDomain ? 'GET' : $api.preferredHttpMethod), 
             jsonpCallback:"visualplatformconcat_" + ($i++),
             success:function(res) {
               $.each(objectNames, function(i,name){
